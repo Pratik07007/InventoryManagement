@@ -1,14 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Form = () => {
+  const [loginPayload, setLoginPayload] = useState({
+    email: "",
+    password: "",
+  });
+  const handelLogin = () => {
+    console.log(loginPayload);
+  };
   return (
     <div className="flex flex-col justify-around items-center  h-[53%] w-[40%] ">
       <h1 className="text-3xl font-medium flex justify-center w-full">Login</h1>
       <div className="flex flex-col items-center gap-1 w-full">
-        <input className="w-[80%] px-4 outline-none  bg-[#E0E0E0] h-8 rounded-xl" placeholder="Enter email" type="email" /> <br />
-        <input className="w-[80%] px-4 outline-none bg-[#E0E0E0] h-8 rounded-xl"  placeholder="Enter password"type="password" />
+        <input
+          value={loginPayload.email}
+          onChange={(e) =>
+            setLoginPayload({ ...loginPayload, email: e.target.value })
+          }
+          className="w-[80%] px-4 outline-none  bg-[#E0E0E0] h-8 rounded-xl"
+          placeholder="Enter email"
+          type="email"
+        />{" "}
+        <br />
+        <input
+          value={loginPayload.password}
+          onChange={(e) =>
+            setLoginPayload({ ...loginPayload, password: e.target.value })
+          }
+          className="w-[80%] px-4 outline-none bg-[#E0E0E0] h-8 rounded-xl"
+          placeholder="Enter password"
+          type="password"
+        />
       </div>
-      <button className="text-[#F4F9FA] text-xl px-10 py-2 rounded-2xl bg-[#4796BD]">Login</button>
+      <button
+        onClick={handelLogin}
+        className="text-[#F4F9FA] text-xl px-10 py-2 rounded-2xl bg-[#4796BD]"
+      >
+        Login
+      </button>
       <div>
         new user? <span className=" underline">Register?</span>
       </div>
