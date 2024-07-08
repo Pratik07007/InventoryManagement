@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { BASE_URL } from "../utils/BASE_URL";
+import toast from "react-hot-toast";
 
 const Form = () => {
   const [loginPayload, setLoginPayload] = useState({
@@ -6,7 +8,17 @@ const Form = () => {
     password: "",
   });
   const handelLogin = () => {
-    console.log(loginPayload);
+    fetch(`${BASE_URL}/api/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(loginPayload),
+    })
+      .then((resp) => resp.json())
+      .then((resp) => {
+        resp.success ? toast.success(resp.msg) : toast.error(resp.msg);
+      });
   };
   return (
     <div className="flex flex-col justify-around items-center  h-[53%] w-[40%] ">

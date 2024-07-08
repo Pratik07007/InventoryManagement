@@ -47,7 +47,7 @@ app.post("/api/auth/login", (req, res) => {
         });
       }
       const token = jwt.sign({ email }, process.env.JWT_SECRET);
-      return res.json({ success: true, token: token});
+      return res.json({ success: true,msg:"Employee logged in succesfullp ", token: token});
     }
   });
 });
