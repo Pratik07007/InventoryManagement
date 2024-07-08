@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { BASE_URL } from "../utils/BASE_URL";
+import toast from "react-hot-toast";
+toast;
 
 const Form = () => {
   const [registrationPayload, setRegistrationPayload] = useState({
@@ -6,10 +9,20 @@ const Form = () => {
     email: "",
     password: "",
     phone: "",
+    gender: "",
   });
   const handelSubmit = () => {
-    
-    console.log(registrationPayload);
+    fetch(`${BASE_URL}/api/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(registrationPayload),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        res.success ? toast.success(res.msg) : toast.error(res.msg);
+      });
   };
   return (
     <div className="flex flex-col gap-10 justify-center  items-center  h-full w-[40%] ">
@@ -42,6 +55,24 @@ const Form = () => {
           placeholder="Enter email"
           type="email"
         />{" "}
+        <br />
+        <div className="w-[80%] flex justify-start items-start ">
+          <select
+            className="border-[1px] border-solid border-black rounded-3xl outline-none  text-xl font-thin"
+            value={registrationPayload.gender}
+            onChange={(e) =>
+              setRegistrationPayload({
+                ...registrationPayload,
+                gender: e.target.value,
+              })
+            }
+          >
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>{" "}
         <br />
         <input
           value={registrationPayload.password}
