@@ -1,8 +1,7 @@
 const express = require("express");
 const { USER } = require("../db");
 const cors = require("cors");
-const jwt = require("jsonwebtoken")
-
+const jwt = require("jsonwebtoken");
 
 const app = express();
 
@@ -15,6 +14,7 @@ app.use(
 );
 
 app.post("/api/auth/register", (req, res) => {
+  // OTP VERIFICATION LEFT
   const { name, email, password, phone, gender } = req.body;
   USER.findOne({ email }).then((resp) => {
     if (resp) {
@@ -47,7 +47,11 @@ app.post("/api/auth/login", (req, res) => {
         });
       }
       const token = jwt.sign({ email }, process.env.JWT_SECRET);
-      return res.json({ success: true,msg:"Employee logged in succesfullp ", token: token});
+      return res.json({
+        success: true,
+        msg: "Employee logged in succesfully ",
+        token: token,
+      });
     }
   });
 });
